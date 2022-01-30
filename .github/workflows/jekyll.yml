@@ -1,4 +1,4 @@
-name: 'Automatic build'
+name: 'Automatic build1'
 on:
   push:
     branches:
