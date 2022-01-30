@@ -60,6 +60,7 @@ code
 ## About post configuration
 
 You can find a template for posts at main branch named *post_template.md*
+</br>You have to name it in several way: YYYY-DD-MM-some-title.md
 <br>There are some details to add.
 ```yaml
 title: The main title
