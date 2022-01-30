@@ -1,0 +1,70 @@
+
+
+<feed xmlns="http://www.w3.org/2005/Atom">
+  <id>http://localhost:4000/</id>
+  <title>Club Robot</title>
+  <subtitle>Sur se site vous pourrez trouver tout documentation necessaire</subtitle>
+  <updated>2022-01-30T18:42:20+01:00</updated>
+  <author>
+    <name>Club Robot INSA Toulouse</name>
+    <uri>http://localhost:4000/</uri>
+  </author>
+  <link rel="self" type="application/atom+xml" href="http://localhost:4000/feed.xml"/>
+  <link rel="alternate" type="text/html" hreflang="en"
+    href="http://localhost:4000/"/>
+  <generator uri="https://jekyllrb.com/" version="4.2.1">Jekyll</generator>
+  <rights> © 2022 Club Robot INSA Toulouse </rights>
+  <icon>/assets/img/favicons/favicon.ico</icon>
+  <logo>/assets/img/favicons/favicon-96x96.png</logo>
+
+
+  
+  <entry>
+    <title>Some help for redaction</title>
+    <link href="http://localhost:4000/posts/some-help-for-redaction/" rel="alternate" type="text/html" title="Some help for redaction" />
+    <published>2021-12-25T16:53:00+01:00</published>
+  
+    <updated>2021-12-25T16:53:00+01:00</updated>
+  
+    <id>http://localhost:4000/posts/some-help-for-redaction/</id>
+    <content src="http://localhost:4000/posts/some-help-for-redaction/" />
+    <author>
+      <name>{"name"=>"Club Robot", "link"=>"https://github.com/ClubRobotInsat"}</name>
+    </author>
+
+  
+    
+    <category term="2022" />
+    
+    <category term="moderation" />
+    
+  
+
+  
+    <summary>
+      
+
+
+
+
+
+      In this post you will find all required information for posting in this website
+
+Markdown (.md) redaction
+At first you have to take a look on markdown syntax here
+
+Image example
+If you need place some images in your posts. Use the following syntax.
+
+![Alt word if image isn't loaded](/assets/img/favicons/android-chrome-512x512.png){: width="200" height="100"}
+*Image description phrase*
+
+For each...
+    </summary>
+  
+
+  </entry>
+
+</feed>
+
+
