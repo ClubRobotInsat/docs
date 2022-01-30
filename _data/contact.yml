@@ -7,8 +7,8 @@
   type: instagram
   icon: 'fab fa-instagram'
 -
-  type: email
-  icon: 'fas fa-envelope'
+  type: discord
+  icon: 'fab fa-discord'
   noblank: true            # open link in current tab
 -
   type: rss
