@@ -1,6 +1,6 @@
 <div align="center">
 Hello!
-<br> Here you can find some documentation of Club Robot at INSA Toulouse.
+<br> Here you can find some documentation from Club Robot at INSA Toulouse.
 <br> For post moderation please check <a href="https://clubrobotinsat.github.io/docs/posts/some-help-for-redaction/">this</a>
 <br> The main <a href="https://clubrobotinsat.github.io/">website</a>
 </div>
