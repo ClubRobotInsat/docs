@@ -1,6 +1,6 @@
 ---
 title: Introduction
-date:   08/02/22 20:15:00 +0800
+date:   2022-02-08 20:15:00 +0800
 categories: ["2022", "Tresorerie"]     # Up to 2 categories
 tags: [tresorerie,introduction,argent]              # You can add as much tags as you wish (but dont abuse)
 author:
