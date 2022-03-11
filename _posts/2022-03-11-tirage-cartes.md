@@ -1,6 +1,6 @@
 ---
 title: Tirage cartes électroniques au FabLab
-categories: ["2022", tirage cartes"]
+categories: ["2022", tirage cartes]
 tags: [post,tutorial,elec-hard,fablab]
 author:
   name: Joel IMBERGAMO GUASCH
