@@ -6,8 +6,8 @@
 !.travis.yml
 
 # bundler cache
-vendor
 _site
+vendor
 
 # rubygem
 *.gem
@@ -15,4 +15,3 @@ _site
 # npm dependencies
 node_modules
 package-lock.json
-/_site/
