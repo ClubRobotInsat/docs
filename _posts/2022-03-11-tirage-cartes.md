@@ -32,6 +32,8 @@ Dans les propriétés d’impression il faut sélectionner du papier transparent
 1.
 Couper une carte dans la taille plus petite possible ( laisser de l’espace pour coller le film sur la résine )
 
+⚠️ Prendre les plaques à simple face si possible elles sont moins chères 😅. 
+
 2.
 Retirer la protection de la résine ( truc bleu collé )
 
