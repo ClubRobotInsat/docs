@@ -2,11 +2,11 @@
 title: CAN Bus 
 date: 2022-03-15 19:28:00 +0800
 categories: ["2022", can-bus]
-tags: [post,tutorial,elec-soft, can-bus, ]
+tags: [post, elec-soft, can-bus, ]
 author:
   name: Andrea PEREZ FERNANDEZ
   link: https://github.com/andreapefe
-pin: true
+pin: false
 render_with_liquid: false
 comments: false
 math: false
@@ -30,5 +30,5 @@ Cependant on peut pas l'utiliser tous seul, il faut lui associé un composant ap
 
 Vous observerez que nous connectons les deux poins CANH et CANL sur un circuit fermé par deux résistances de 120 Ohm. En effet, il n'a pas de sens envoyé ou recevoir tous les messages circulent sur ce milieu et sont récupérés par toutes les STM32 si elles sont en reception. On appelle ça un circuit bouchon. 
 
-Pour tester le CAN Bus avant de l'embarqué nous avons fabriquée 3 cartes de protypage qui permettent d'utiliser le CAN Transreceiver avec une plaquette d'essai (ID AAB). Vous trouverez le circuit et le Typhoon pour la fabriquée [ici](https://github.com/ClubRobotInsat/Cartes_2022/tree/master/ID_AAB_CAN_PrototypageGrand). Les MCP2551 sont des composants montés en surface (CMS) et donc on n'a pas accès au différents PIN directement. 
+Pour tester le CAN Bus avant de l'embarqué nous avons fabriquée 3 cartes de protypage qui permettent d'utiliser le CAN Transreceiver avec une plaquette d'essai (ID AAB). Vous trouverez le circuit et le Typhoon pour la fabriquée [ici](https://github.com/ClubRobotInsat/Cartes_2022/tree/master/ID_AAB_CAN_PrototypageGrand). Les MCP2551 sont des composants montés en surface (CMS) et donc on n'a pas accès aux différents PIN directement. 
 
