@@ -23,16 +23,24 @@ mermaid: true
 
 ### 2. l’exporter comme SVG
 
+Aprés l'avoir exporté enlever toutes les parties inutiles jor les lignes de marge du plan.
+
 ### 3. Imprimer en sélectionnant type d’impression sur du papier transparent
 
-Dans les propriétés d’impression il faut sélectionner du papier transparent pour que l’imprimante mette plus d’encre et bien marquer la carte sur le papier. Bien s’assurer que toutes les lignes sont continues et que l’image n’a pas de séparation entre les pixels.
+Dans les propriétés d’impression il faut sélectionner du papier transparent pour que l’imprimante mette plus d’encre ( pas utiliser economisation d'ancre ) et bien marquer la carte sur le papier. Bien s’assurer que toutes les lignes sont continues et que l’image n’a pas de séparation entre les pixels.
+
+One peut exporter en PDF avant pour avoir une prévisualisation de l'impression.
+
+Avant d'imprimer avec du papier transparent on peut l'imprimer en papier "normal" pour voir si la position de l'impression est correcte.
+
+Les papiers transparents doivent avoir un bout droit sinon l'imprimante ne les aime pas 😖 ;
 
 ### 4. Suivre le livret d’impression de cartes au fablab
 
 1.
 Couper une carte dans la taille plus petite possible ( laisser de l’espace pour coller le film sur la résine )
 
-⚠️ Prendre les plaques à simple face si possible elles sont moins chères 😅. 
+⚠️ Prendre les plaques à simple face si possible elles sont moins chères 😅.
 
 2.
 Retirer la protection de la résine ( truc bleu collé )
