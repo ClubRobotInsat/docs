@@ -12,7 +12,7 @@ comments: false
 math: false
 mermaid: true
 ---
-## 1. Presentation du protocole
+# 1. Presentation du protocole
 Le protocole utilisé pour communiquer entre les microcontrolleurs STM32 et le "cerveau" du robot, la Raspberry Pi est le CAN Bus. Très utilisé en industrie notamment dans le domaine de l'automobile, nous l'avons choisi car il permet de transmettre les messages avec juste 2 cables. 
 
 Ce protocole n'a pas le concept de ID pour les différentes machines sur le réseau mais peut être implémenté ultérieurement. En revanche, nous avons le concept de priorité de messages pour éviter les collisons dans le réseau. Ce sera le message de plus haute priorité qui sera émis en cas de conflit. Dans la documentation il se refère à cette priorité comme l'identificateur de message (ID) même si ce n'est pas exactement ça. Il existe deux version de pour les ID (priorité) selon laquel la taille du champ priorité/ID des messages change :
@@ -21,8 +21,8 @@ Ce protocole n'a pas le concept de ID pour les différentes machines sur le rés
 
 Chaque trame de CAN se compose en plus de son ID d'une zone de data de taille maximale de 64 octects. Pour avoir plus d'informations techniques sur le CAN vous pouvez [clickez ici](https://www.ti.com/lit/an/sloa101b/sloa101b.pdf?ts=1633140726383&ref_url=https%253A%252F%252Fwww.google.com%252F/)
 
-## 2. Utilisé le CAN BUS avec des STM32
-### 2.1. Comment utilsier le périphérique bxCAN
+# 2. Utilisé le CAN BUS avec des STM32
+## 2.1. Comment utilsier le périphérique bxCAN
 Notre microcontroleur STM32 possède deux périphériques internes capables de faire du CAN Bus appelés bxCAN. Si on ne fait pas de remap sur notre STM32 ils sont accesibles via les ports suivants:
 
 | nº CAN | TXD  | RXD  |
@@ -40,7 +40,7 @@ Cependant, on ne peut pas l'utiliser tout seul, il faut lui associé un composan
 
 Vous observerez que nous connectons les deux poins CANH et CANL sur un circuit fermé par deux résistances de 120 Ohm. En effet, il n'a pas de sens envoyé ou recevoir tous les messages circulent sur ce milieu et sont récupérés par toutes les STM32 si elles sont en reception. On appelle ça un circuit bouchon. 
 
-### 2.2. Comment filtrer des messages
+## 2.2. Comment filtrer des messages
 Ces périphériques bxCAN ont des fonctionnalités supplémentaires assez intéressantes en termes de filtrage de messages. Elles sont très utiles, car les messages sont directement filtrés par le hardware ce qui allege la charge de travail du processeur. Au club, nous utilisons filtrage par ID et/ou Masque. Il existe plusieurs banques ou configurer les filtres (cf. doc officielle) donc les possibilités sont très nombreuses. Nous n'utilisons qu'une seule banque pour filtrer nos messages parce que c'est largement suffisant pour notre application. 
 
 Le filtrage par ID est simple il suffit d'indiquer au programme que nous voulons juste recevoir des messages avec un ID particuler. Sur rust on le configure de la forme suivante :
@@ -69,6 +69,6 @@ filters.enable_bank(0, Mask32::frames_with_std_id(
     StandardId::new(0x001).unwrap())); //masque
 ```
 
-## 2.2. Comment tester le CAN bus
+# 3. Comment tester le CAN bus
 Pour tester le CAN Bus avant de l'embarqué nous avons fabriquée 3 cartes de protypage qui permettent d'utiliser le CAN Transreceiver avec une plaquette d'essai (ID AAB). Vous trouverez le circuit et le Typhoon pour la fabriquée [ici](https://github.com/ClubRobotInsat/Cartes_2022/tree/master/ID_AAB_CAN_PrototypageGrand). Les MCP2551 sont des composants montés en surface (CMS) et donc on n'a pas accès aux différents PIN directement. 
 
