@@ -47,7 +47,8 @@ Le filtrage par ID est simple il suffit d'indiquer au programme que nous voulons
 ``` rust
 const u16 ID //inf à 2¹¹ si Standard ID
 let mut filters = can1.modify_filters();
-filters.enable_bank(0, ListEntry16::data_frames_with_id(StandardId::new(MY_ID).unwarp()));
+filters.enable_bank(0, 
+    BankCOnfig::List16([ListEntry16::data_frames_with_id(StandardId::new(MY_ID).unwarp())]));
 ``` 
 Le filtrage par Masque/ID et de filtrer de forme plus fine. Elle se compose d'un masque qui nous indique quels bits il faut regarder (bit à 1) et lesquels on peut ignorer (à 0). L'ID nous donne la valeur que devrait avoir ces bits. Ainsi par exemple si nous voulons filtrer de sorte à avoir juste des messages avec des IDs pairs nous configurons notre masque et notre ID tel que (pour des ID standards à 11 bits):
 - Masque : 0x001 (dernier bit à 1)
