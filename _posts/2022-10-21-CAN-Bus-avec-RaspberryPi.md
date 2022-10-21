@@ -1,6 +1,6 @@
 ---
 title: CAN Bus avec Raspberry Pi
-date: 2022-03-15 19:28:00 +0800
+date: 2022-10-21 11:26:00 +0800
 categories: ["2022", can-bus]
 tags: [post, elec-soft, can-bus, raspberryPi, protocol, info]
 author:
