@@ -13,13 +13,24 @@ math: false
 mermaid: true
 ---
 # 1. Presentation du protocole
-Le protocole utilisé pour communiquer entre les microcontrolleurs STM32 et le "cerveau" du robot, la Raspberry Pi est le CAN Bus. Très utilisé en industrie notamment dans le domaine de l'automobile, nous l'avons choisi car il permet de transmettre les messages avec juste 2 cables. 
+Le protocole utilisé pour communiquer entre les microcontrôleurs STM32 et le "cerveau" du robot, la Raspberry Pi est le CAN Bus. Très utilisé en industrie notamment dans le domaine de l'automobile, nous l'avons choisi car il permet de transmettre les messages avec juste 2 cables nommé CAN High et CAN Low. 
 
-Ce protocole n'a pas le concept de ID pour les différentes machines sur le réseau mais peut être implémenté ultérieurement. En revanche, nous avons le concept de priorité de messages pour éviter les collisons dans le réseau. Ce sera le message de plus haute priorité qui sera émis en cas de conflit. Dans la documentation il se refère à cette priorité comme l'identificateur de message (ID) même si ce n'est pas exactement ça. Il existe deux version de pour les ID (priorité) selon laquel la taille du champ priorité/ID des messages change :
+## 1.1. Avantages
+Ce protocole a de nombreux avantages : 
+- Il présente une grande fiabilité. En effet, il implémente 5 moyens différents de détection d'erreurs et est capable de détecter une erreur en 20 bits. Ainsi pour notre débit de 115Kb/,  une erreur est détecté moins de 1 ms. Elles sont de plus très rares grâce aux propriétés électromagnétiques du bus. 
+- L'acquittement de reception est gérer par le hardware associé au CAN. DOnc il n'y a pas besoin de traiter les ACK logiciellement. Le renvoi de message en cas d'échec d'envoi se fait aussi par hardware. 
+- Débits suffisamment élevés pouvant atteindre un 1 Mbit/s. 
+- Gestion des collisions entre messages. Si plusieurs machines sur le réseau décide d'envoyer un message en même temps, le message le plus prioritaire sera envoyer en premier (cf. partie 1.2.). 
+
+## 1.2. Format des trames
+Les trames CAN sont composé de 2 parties, la partie ID et la partie données. Cependant, le concept de ID ne correspond pas à l'idée d'avoir un identificateur pour les différentes machines du réseau. En revanche, il se réfère à la priorité des messages qui permet de choisir quel message sera envoyer en premier en cas de collisions dans le réseau. Ce sera le message de plus haute priorité qui sera émis en cas de conflit. Dans la documentation, on se réfère à cette priorité comme l'identificateur de message (ID) même si ce n'est pas exactement ça. Il existe deux versions de ID (priorité) selon la quel la taille du champ priorité/ID des messages change :
 - Standard CAN ID: Taille de 11 bits
 - Extended CAN ID: Taille de 29 bits
 
-Chaque trame de CAN se compose en plus de son ID d'une zone de data de taille maximale de 64 octects. Pour avoir plus d'informations techniques sur le CAN vous pouvez [clickez ici](https://www.ti.com/lit/an/sloa101b/sloa101b.pdf?ts=1633140726383&ref_url=https%253A%252F%252Fwww.google.com%252F/)
+La zone data a une taille maximale entre 0 et 8 octets soit 64 bits au total. 
+
+Pour avoir plus d'informations techniques sur le CAN vous pouvez [clickez ici](https://www.ti.com/lit/an/sloa101b/sloa101b.pdf?ts=1633140726383&ref_url=https%253A%252F%252Fwww.google.com%252F/)
+
 
 # 2. Utilisé le CAN BUS avec des STM32
 ## 2.1. Comment utilsier le périphérique bxCAN
@@ -56,9 +67,8 @@ Le filtrage par Masque/ID et de filtrer de forme plus fine. Elle se compose d'un
 
 Avec cette configuration, nous allons recevoir que des messages avec un ID qui ont le dernier bit à 0 soit des ID pairs. De forme analogue si on configure les registres tels que :
 
-Masque : 0x001 (dernier bit à 1)
-
-ID : 0x001 (dernier bit à 0)
+- Masque : 0x001 (dernier bit à 1)
+- ID : 0x001 (dernier bit à 0)
 
 Nous allons recevoir que des messages à ID impair. 
 
@@ -71,5 +81,18 @@ filters.enable_bank(0, Mask32::frames_with_std_id(
 ```
 
 # 3. Comment tester le CAN bus
-Pour tester le CAN Bus avant de l'embarqué nous avons fabriquée 3 cartes de protypage qui permettent d'utiliser le CAN Transreceiver avec une plaquette d'essai (ID AAB). Vous trouverez le circuit et le Typhoon pour la fabriquée [ici](https://github.com/ClubRobotInsat/Cartes_2022/tree/master/ID_AAB_CAN_PrototypageGrand). Les MCP2551 sont des composants montés en surface (CMS) et donc on n'a pas accès aux différents PIN directement. 
+## 3.1. Carte de prototypage
+Pour tester le CAN Bus avant de l'embarqué nous avons fabriqué 3 cartes de protypage (ID de carte AAB) qui permettent d'utiliser le CAN Transreceiver avec une plaquette d'essai . Vous trouverez le circuit et le Typhoon pour la fabriquée [ici](https://github.com/ClubRobotInsat/Cartes_2022/tree/master/ID_AAB_CAN_PrototypageGrand). Les MCP2551 sont des composants montés en surface (CMS) et donc on n'a pas accès aux différents PIN directement. 
 
+## 3.2. Mise en route
+
+Il faut brancher la carte et le bus tel qu'indiqué dans le 2.1. Il ne faut surtout pas oublier les resistances bouchons en bord du bus de 120 Ohm au pin RS. Il faut faire gaffe aussi à bien brancher la résistance de 10 kOhm, en effet, c'est elle qui permet de fixer mode de fonctionnement du MCP (High speed, Slope-control et Standby Mode). Nous sommes en Slope-Control et on a fixé une vitesse de balayage (slew-rate) de environ 23V/us. Cette vitesse de balayage limite le débit du CAN Bus qu'on fixe logiciellement. 
+
+**Il existe déjà un banc test déjà brancher pour tester**. Donc normalement pas besion de refaire tout ceci. 
+
+On alimente tout le circuit en 5V pour être sûr d'avoir une tension stable pour les MCP. Il faut mettre au moins 2 MCP sur le réseau. On ne peut pas tester le CAN Bus seul car il a besoin de recevoir des ACK pour être sûrs que les messages ont été bien envoyés. 
+
+Pour commencer à envoyer des messages et à en recevoir, il faut flasher la STM32 avec le code qui est dans la branche can-bus de ce [repo Github](https://github.com/ClubRobotInsat/robot_rust_2022). Le code est commenté et devrait être semi-compréhensible. Il permet d'afficher sur la console du debugger les messages reçus. Le code pour envoyer des messages est commenté et présent dans le loop. Si votre STM est déjà alimenté par les +5V des MCP vous pouvez débrancher le pin 3V3 du câble de flash. Il n'est pas nécessaire. 
+
+## 3.3. Configurations possibles 
+Vous pouvez soit flasher deux STM entre elles et les faire communiquer mais vous pouvez aussi connecter la raspberry Pi avec son module CAN aussi. Pour voir comment faire du CAN avec la raspberry Pi se référer à [cette page]  
